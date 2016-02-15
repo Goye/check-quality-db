@@ -1,0 +1,64 @@
+ <!-- public/views/index.html -->
+<!doctype html>
+<html lang="en" ng-app="checkQualityDb">
+<head>
+    <meta charset="UTF-8">
+    <title>Check quality DB</title>
+    <!-- CSS -->
+    <link rel="stylesheet" href="libs/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css"> <!-- custom styles -->
+    <link rel="stylesheet" href="libs/ng-table/dist/ng-table.min.css">
+    <link rel="stylesheet" href="libs/angular-busy/dist/angular-busy.min.css">
+
+</head>
+<body ng-controller="QueryController as vm">
+    <div class="page-header text-center">
+      <h1>Database Monitoring</h1>
+    </div>
+    <div class="container well">
+        <form action="#" method="post" accept-charset="utf-8">
+            <div class="form-group">
+                <label for="title">Título</label>
+                <input id="title" class="form-control" type="text" ng-model="vm.title" name="title" value="Título">
+            </div>
+            <div class="form-group">
+                <label for="query">QueryValue</label>
+                <textarea id="query" class="form-control" rows="4" cols="50" ng-model="vm.queryValue" name="queryValue"></textarea>
+            </div>
+            <div ng-if="vm.result" class="alert " ng-class="{'alert-success': vm.success, 'alert-danger': !vm.success}">
+              <strong>{{vm.result}}!</strong>
+            </div>
+            <div class="form-group">
+                <input class="btn btn-info" ng-init="vm.result=false" type="button" ng-click="vm.validateQuery()" name="send" value="Enviar">
+            </div>
+        </form>
+    </div>
+    <div class="container well" cg-busy="vm.busy">
+        <table ng-table="vm.tableParams" class="table text-center table-striped">
+            <tr ng-repeat="query in $data">
+                <td title="'Id'">
+                    {{query.id}}</td>
+                <td title="'Title'">
+                    {{query.title}}</td>
+                <td title="'&Uacute;ltima ejecuci&oacute;n'">
+                    {{vm.convertUnixTime(query.updated_at)}}</td>
+                <td title="'&Uacute;ltimo error'">
+                    {{vm.convertUnixTime(query.is_valid) }}</td>
+                <td><button class="btn btn-info" ng-click="vm.executeQuery(query.id)">Ejecutar</button></td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- JS -->
+    <script src="libs/angular/angular.min.js"></script>
+    <script src="libs/angular-route/angular-route.min.js"></script>
+    <script src="libs/ng-table/dist/ng-table.min.js"></script>
+    <script src="libs/moment/min/moment.min.js"></script>
+    <script src="libs/angular-busy/dist/angular-busy.min.js"></script>
+
+    <!-- ANGULAR CUSTOM -->
+    <script src="js/app.js"></script>
+    <script src="js/controllers/QueryCtrl.js"></script>
+    <script src="js/services/QueryService.js"></script>
+</body>
+</html>

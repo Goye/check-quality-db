@@ -1,0 +1,15 @@
+{
+  "name": "starter-node-angular",
+  "version": "1.0.0",
+  "dependencies": {
+    "bootstrap": "latest",
+    "font-awesome": "latest",
+    "animate.css": "latest",
+    "angular": "latest",
+    "angular-route": "latest",
+    "ng-table": "^0.8.3",
+    "angular-moment": "^0.10.3",
+    "moment": "^2.11.2",
+    "angular-busy": "^4.1.3"
+  }
+}
